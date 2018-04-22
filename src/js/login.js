@@ -21,7 +21,7 @@ $(".btn-login").on("click",function(){
            success : function(result) {
            		var token = result.result
            		localStorage.setItem('token', JSON.stringify(token))
-             	location.href = "/Users/yuzhang/Desktop/html/index.html";
+             	location.href = indexUrl;
            },
            error:function(msg){
              	if(msg.responseJSON.msg.password!==undefined){
@@ -75,5 +75,5 @@ $(".btn-register").on("click",function(){
 })
 
 function reurl(){
-	location.href = "/Users/yuzhang/Desktop/html/login.html";
+	location.href = loginUrl;
 }

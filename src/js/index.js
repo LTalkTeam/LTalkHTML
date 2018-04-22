@@ -6,19 +6,18 @@
  * 6. 关掉页面时，清除缓存
  */
 
+var token = JSON.parse(localStorage.getItem('token'));
 
-var token = JSON.parse(localStorage.getItem('token'))
-
-console.log(token)
+console.log(token);
 
 if(token==undefined){
-	location.href = "/Users/yuzhang/Desktop/html/login.html";
+	location.href = loginUrl;
 }
 
 var ws = new WebSocket('ws://118.24.77.25:9502');
 
 ws.onopen = function (ev) {
-    console.log('页面初始化...')
+    console.log('页面初始化...');
     var data = {
         "controller":"OnOpen",
         "action":"init",
@@ -29,18 +28,19 @@ ws.onopen = function (ev) {
 };
 
 ws.onmessage = function (ev) {
-	console.log('server data:'+ ev.data)
-	var method = eval(ev.data.method)
-	var data   = eval(ev.data.data)
-	fn = eval(method+"()")
+	console.log('server data:'+ ev.data);
+	var method = eval(ev.data.method);
+	var data   = eval(ev.data.data);
+	fn = eval(method+"()");
 	fn(data)
 };
 
 ws.onclose = function (ev) {
     layer.msg('服务器故障，请重新登录');
     // 清除本地缓存
+    // todo
     setTimeout(function (){
-    	location.href = "/Users/yuzhang/Desktop/html/login.html";
+    	location.href = loginUrl;
     }, 2000); 
     
 };
