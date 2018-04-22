@@ -4,15 +4,26 @@
 	<meta charset="UTF-8">
 	<title>LTalk | Index</title>
 	<link rel="stylesheet" href="src/css/index.css">
+	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
 </head>
 <body>
 	<!-- <h1>LTalk</h1> -->
 	<div class="all">
-		<div class="user-info"></div>
+		<div class="user-info">
+			<h3>在线人数</h3>
+			<span>999</span>
+		</div>
 		<div class="friend">
 			<div class="friend-top">
-				<div class="friend-top-left">好友</div>
-				<div class="friend-top-right">群组</div>
+				<div class="friend-top-left">好友 <i class="fa fa-plus-square add-friends"></i></div>
+				<div class="friend-top-right">
+					群组
+					<i class="fa fa-plus-square btn-group"></i>
+					<ul style="display: none;">
+						<li><a href="javascript:void(0);" class="add-group">添加群组</a></li>
+						<li><a href="javascript:void(0);" class="create-group">创建群组</a></li>
+					</ul>
+				</div>
 			</div>
 			<div class="friend-block">
 				<div class="status online"></div>

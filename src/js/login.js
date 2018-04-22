@@ -20,7 +20,7 @@ $(".btn-login").on("click",function(){
            data : {'email':$(".login input[name='email']").val(),'password':$(".login input[name='password']").val()},
            success : function(result) {
            		var token = result.result
-           		localStorage.setItem('token', JSON.stringify(token))
+           		sessionStorage.setItem('token', JSON.stringify(token))
              	location.href = indexUrl;
            },
            error:function(msg){

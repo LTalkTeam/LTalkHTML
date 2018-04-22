@@ -23,6 +23,11 @@ body{
 	border-radius: 10px 0 0 10px;
 }
 
+.user-info *{
+	text-align: center;
+	color: #ffffff;
+}
+
 .friend{
 	float: left;
 	width: 260px;
@@ -54,6 +59,7 @@ body{
     text-align: center;
     line-height: 50px;
     cursor: pointer;
+    position: relative;
 }
 
 .friend-top-left{
@@ -127,4 +133,31 @@ body{
 	line-height: 50px;
 	font-size: 20px;
 	color: #535353;
+}
+
+/*创建/添加群*/
+.friend .friend-top ul{
+	position: absolute;
+	left: -1px;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	width: 128px;
+	background: #ffffff;
+	border:1px solid #e8e6e6;
+	border-radius: 3px;
+	box-shadow: 0 0 5px #ededed;
+}
+
+.friend .friend-top ul li{
+	line-height: 32px;
+	color: #666666;
+	border-bottom:1px solid #e8e6e6;
+}
+
+.friend .friend-top ul li a{
+	line-height: 36px;
+	color: #666666;
+	text-decoration: none;
+    font-size: 13px;
 }
