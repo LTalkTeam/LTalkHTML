@@ -1,0 +1,284 @@
+
+1. 规范：
+	· 请求
+		基于 websocket（以下简称 ws）的所有请求，都写成以下格式：
+		var data = {
+	        "controller" : "OnOpen",					// 控制器
+	        "action"	 : "init",						// 方法
+	        "content"	 : {"token":token}				// 传递的数据（所有请求都必须传 token）
+	    };
+	    var data = JSON.stringify(data);				// 转化成字符串再传递
+	    ws.send(data);									// 发送到服务器
+
+	· 相应
+		成功处理后返回的格式：
+		{
+			"type":"ws",								// 可以忽略，暂时没用
+			"method":"ok",								// 希望前端用该函数去处理相关逻辑
+			"data":"初始化完成"							// 具体数据
+		}
+		若失败返回的格式：
+		{
+			"code":400,									// 网页状态码
+			"msg":"token 验证失败",						// 错误信息
+			"errorCode":50000							// 自定义错误码
+		}
+
+		// 可以根据是否有 errorCode 或者相应头状态码来判断请求失败与否
+
+	· 下文中标题带有 [*] 是表示无需发请求，服务器随时可能推送的消息
+
+
+2. 初始化
+	发送：
+		controller 	: OnOpen
+		action	  	: init
+		content		: token
+	结果：
+		{"type":"ws","method":"ok","data":"初始化完成"}
+
+	场景：在 ws.onopen 触发时调用
+	备注：用来初始化此人的个人信息，连接信息等等，是后来所有接口的基础，所以以下接口的前提，是初始化成功
+
+
+3. 获取好友列表
+	发送：
+		controller 	: Friend
+		action	  	: getFriends
+		content		: token
+	结果：
+		{
+			"type":"ws",
+			"method":"getFriends",
+			"data":[
+				{"number":309806,"nickname":"cat","last_login":1524282913,"online":1}
+				{"number":342344,"nickname":"dog","last_login":1524282913,"online":0}
+			]
+		}
+	返回数据参数说明：
+		number 	： 好友号，相当于qq中的qq号
+		nickname： 昵称
+		last_login：上次登录事件（可以为不在线的好友展示此信息）
+		online	： 当前是否在线，0不在线，1在线	
+
+	场景：在初始化后立刻调用，渲染页面好友信息
+	备注：由于接收消息/查看消息/发送消息等等都是基于 number ，所以应该在列表中用 hidden 存储起来
+
+
+4. 获取【我的群组】列表
+	发送：
+		controller 	: Group
+		action	  	: getGroups
+		content		: token
+	结果：
+		{
+			"type":"ws",
+			"method":"groupList",
+			"data":[
+				{
+					"gnumber":44227700,
+					"user_number":113314,
+					"info":{
+						"id":1,
+						"gnumber":44227700,
+						"user_number":113314,
+						"ginfo":"php是世界上最好的语言",
+						"gname":"群1",
+						"created_time":"2018-04-18 20:45:15"
+					}
+				},
+				{
+					"gnumber":52452345,
+					"user_number":113314,
+					"info":{
+						"id":2,
+						"gnumber":52452345,
+						"user_number":3423423,
+						"ginfo":"这是个群",
+						"gname":"群2",
+						"created_time":"2018-04-18 20:45:15"
+					}
+				}
+			]
+		}
+	返回数据参数说明：
+		gnumber 		 : 群号
+		info.user_number : 群主号
+		info.ginfo		 : 群描述
+		info.gname		 : 群名
+
+
+	场景：在初始化后立刻调用，渲染页面群组信息
+	备注：同理应该把 gnumber 在列表中用 hidden 存储起来
+
+
+5. 添加好友
+	发送：
+		controller 	: Friend
+		action	  	: sendReq
+		content		: token/number
+	结果：
+		{
+			"type":"ws",
+			"method":"ok",
+			"data":"好友请求已发送！"
+		}
+	发送数据参数说明：
+		number 	： 要添加的好友号
+
+	备注：目前只能添加在线好友，若对方不在线或不存在或已经是好友，则会请求失败，自行捕获 errorCode 提示错误信息
+
+
+6. [*] 收到好友申请
+	推送消息：
+		{
+			"method":"friendRequest",
+			"data":{
+				"from":{
+					"id":"5",
+					"number":"113314",
+					"nickname":"lostsky",
+					"sex":"",
+					"last_login":"1524363112"
+				}
+			}
+		}
+
+	备注：friendRequest 需要页面弹出互动框，提示有好友请求，并带有【同意】【不同意】两个按钮
+
+
+7. 处理好友申请
+	发送：
+		controller 	: Friend
+		action	  	: doReq
+		content		: token/number/check
+	同意结果：（不同意无结果，无需处理）
+		{
+			"type":"ws",
+			"method":"newFriend",
+			"data":{
+				"number":309806,
+				"nickname":"lostsky2",
+				"last_login":1524364509,
+				"online":1
+			}
+		}
+
+	备注：newFriend 需要在好友列表添加一个新好友
+
+
+8. [*] 添加好友的结果
+	对方同意：
+		{
+			"type":"ws",
+			"method":"newFriend",
+			"data":{
+				"number":309806,
+				"nickname":"lostsky2",
+				"last_login":1524364509,
+				"online":1
+			}
+		}
+	对方不同意：
+		{
+			"type":"ws",
+			"method":"newFriendFail",
+			"data":"42342343(昵称) 拒绝好友申请"
+		}
+
+
+9. 发送好友消息 / [*] 收到好友消息(结果相同)
+	发送：
+		controller 	: Chat
+		action	  	: personalChat
+		content		: token/number/data
+	结果：
+		{
+			"type":"ws",
+			"method":"chat",
+			"data":{
+				'flag':1,
+            	'data':"hello,i am cat",
+            	'number':34234324
+			}
+		}
+
+	发送数据参数说明：
+		number 	： 接收人好友号
+		data	： 发送的数据
+
+	接收参数说明：
+		flag	： 1自己的消息，2对方的消息
+		data	： 消息数据
+		number  ： 当 flag==1，此字段为接收人的 number，当 flag==2，此字段为发送人的 number
+
+
+10. [*] 好友上线提醒
+	推送：
+		{
+			"method":"friendOnLine",
+			"data":{
+				"number":"113314",
+				"nickname":"lostsky"
+			}
+		}
+
+
+11. [*] 好友下线提醒
+	推送：
+		{
+			"method":"friendOffLine",
+			"data":{
+				"number":"113314",
+				"nickname":"lostsky"
+			}
+		}
+
+
+12. 发送世界消息
+	发送：
+		controller 	: World
+		action	  	: chat
+		content		: token/data
+	无任何结果（无需处理）
+
+	备注：由于是世界聊天，为缓解服务器压力，不返回结果，不检查是否成功发送，前端在用户提交的瞬间就默认已发送成功，展示在页面即可
+
+
+13. [*] 收到世界消息
+	推送消息：
+		{
+			"method":"worldChat",
+			"data":{
+				"user":{
+					"number":"113314",
+					"nickname":"lostsky",
+					"sex":"",
+					"last_login":"1524364499"
+				},
+				"msg":"hi i am ws1"
+			}
+		}
+	
+	参数说明：
+		user : 发送人信息
+		msg  : 聊天消息
+
+
+14. [*] 在线人数统计
+	推送：
+		{
+			"method":"Statistics",
+			"data":{"count":3}
+		}
+	参数说明：
+		count : 当前在线人数
+
+	备注：服务器每两秒发送一次统计信息
+
+
+
+
+
+
+
