@@ -28,12 +28,16 @@ ws.onopen = function (ev) {
 };
 
 ws.onmessage = function (ev) {
-	console.log('server data:'+ ev.data);
-	var method = eval(ev.data.method);
-	var data   = eval(ev.data.data);
-	fn = eval(method+"()");
-	fn(data)
+	var data = eval('(' + ev.data + ')');
+	var method = data.method;
+	eval(method+"()");
+//	var fn = eval(method+"()");
+//	fn(data);
 };
+
+function Statistics(){
+	console.log("成功")
+}
 
 ws.onclose = function (ev) {
     layer.msg('服务器故障，请重新登录');
