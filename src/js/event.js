@@ -26,7 +26,11 @@ function ok(data){
  * 好友上线
  */
 function friendOnLine(data) {
-
+    var number = data.number;
+    var res = $(".friend-block[number$="+number+"]");
+    // 替换在线状态，去掉上次登陆时间属性
+	// 移动到列表最开始
+    console.log(res);
 }
 
 /*
@@ -48,7 +52,7 @@ function getFriends(data) {
         var value = all[y];
     	var online = value.online==1?"online":"offline";
 		$("#friend-list").append(
-        	'<div class="friend-block" title="上次登录时间：'+value.last_login+'">'+
+        	'<div class="friend-block" number="'+value.number+'" title="上次登录时间：'+value.last_login+'">'+
             	'<div class="status '+online+'"></div>'+
             	'<div class="info">'+
 					'<div class="nackname">'+value.nickname+'</div>'+

@@ -15,15 +15,12 @@ $(".friend .friend-top div .add-friends").on("click",function(){
 	        "action":"sendReq",
 	        "content":{"token":token,"number":pass}
 	    };
-	    console.log(data);
 	    var data = JSON.stringify(data);
 	    ws.send(data);
 	});
 });
 
-function sendReq(){
-	console.log("添加好友，后台返回数据成功");
-}
+
 /*添加/创建群组*/
 $(".friend .friend-top div .btn-group").on("click",function(){
 	$(this).siblings("ul").toggle();
