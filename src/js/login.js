@@ -19,8 +19,8 @@ $(".btn-login").on("click",function(){
            dataType : "json",
            data : {'email':$(".login input[name='email']").val(),'password':$(".login input[name='password']").val()},
            success : function(result) {
-           		var token = result.result
-           		sessionStorage.setItem('token', JSON.stringify(token))
+           		var token = result.result;
+           		sessionStorage.setItem('token', JSON.stringify(token));
              	location.href = indexUrl;
            },
            error:function(msg){

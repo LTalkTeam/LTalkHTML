@@ -8,11 +8,13 @@
 </head>
 <body>
 	<!-- <h1>LTalk</h1> -->
-	<div class="all">
-		<div class="user-info">
-			<h3>在线人数</h3>
-			<span>999</span>
+	<div class="head">
+		<div class="statistics">
+			<p>在线人数：<span></span></p>
 		</div>
+	</div>
+	<div class="all">
+		<div class="user-info"></div>
 		<div class="friend">
 			<div class="friend-top">
 				<div class="friend-top-left">好友 <i class="fa fa-plus-square add-friends"></i></div>
@@ -25,49 +27,27 @@
 					</ul>
 				</div>
 			</div>
-			<div class="friend-block">
-				<div class="status online"></div>
-				<div class="info">
-					<div class="nackname">hello world</div>
-					<div class="number">687123762</div>
-				</div>
-				<div class="ismsg"></div>
+			<div id="friend-list">
+				<!--<div class="friend-block">-->
+					<!--<div class="status online"></div>-->
+					<!--<div class="info">-->
+						<!--<div class="nackname">hello world</div>-->
+						<!--<div class="number">687123762</div>-->
+					<!--</div>-->
+					<!--<div class="ismsg"></div>-->
+				<!--</div>-->
+				<!--<div class="friend-block onchat">-->
+					<!--<div class="status online"></div>-->
+					<!--<div class="info">-->
+						<!--<div class="nackname">peiqi</div>-->
+						<!--<div class="number">687123762</div>-->
+					<!--</div>-->
+				<!--</div>-->
 			</div>
-			<div class="friend-block onchat">
-				<div class="status online"></div>
-				<div class="info">
-					<div class="nackname">peiqi</div>
-					<div class="number">687123762</div>
-				</div>
+			<div id="group-list">
+
 			</div>
-			<div class="friend-block">
-				<div class="status online"></div>
-				<div class="info">
-					<div class="nackname">haha</div>
-					<div class="number">687123762</div>
-				</div>
-			</div>
-			<div class="friend-block">
-				<div class="status online"></div>
-				<div class="info">
-					<div class="nackname">haha</div>
-					<div class="number">687123762</div>
-				</div>
-			</div>
-			<div class="friend-block">
-				<div class="status offline"></div>
-				<div class="info">
-					<div class="nackname">hi cat</div>
-					<div class="number">6871422s</div>
-				</div>
-			</div>
-			<div class="friend-block">
-				<div class="status offline"></div>
-				<div class="info">
-					<div class="nackname">hi cat</div>
-					<div class="number">6871422s</div>
-				</div>
-			</div>
+
 		</div>
 		<div class="talk">
 			<div class="talk-top">
@@ -92,6 +72,7 @@
   	<script type="text/javascript" src="src/js/common.js" ></script>
   	<script type="text/javascript" src="plugins/layer/layer.js" ></script>
   	<script type="text/javascript" src="src/js/event.js"></script>
+  	<script type="text/javascript" src="src/js/ws.js"></script>
   	<script type="text/javascript" src="src/js/index.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 	    var data = JSON.stringify(data);				// 转化成字符串再传递
 	    ws.send(data);									// 发送到服务器
 
-	· 相应
+	· 响应
 		成功处理后返回的格式：
 		{
 			"type":"ws",								// 可以忽略，暂时没用
