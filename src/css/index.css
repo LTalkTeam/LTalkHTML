@@ -172,28 +172,69 @@ body{
 
 /*聊天窗口*/
 .talk .talk-content{
-	height: calc(100% - 165px);
-	background: red;
+	height: calc(100% - 200px);
+	overflow: auto;
+}
+
+.talk .talk-content::-webkit-scrollbar {
+    width: 5px;
+    height: 20px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    opacity: .1;
+}
+
+.talk .talk-content::-webkit-scrollbar-thumb {
+    height: 10px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,.3);
+    background-color: #ededed;
+    opacity: .1;
+}
+
+.talk .talk-content::-webkit-scrollbar-track {
+    display: block;
+    -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,.3);
+    border-radius: 5px;
+    background-color: #fafafa;
+    opacity: .1;
 }
 
 .talk .talk-content ul li{
 	padding: 0 5px;
+	margin: 20px 0;
+	list-style-type: none;
+}
+
+.talk .talk-content ul li p{
+	overflow: hidden;
 	margin: 0;
 }
 
+.talk .talk-content ul li font{
+    display: inline-block;
+    min-width: 60px;
+    float: left;
+    margin: 5px 5px 10px 5px;
+}
+
 .talk .talk-content ul li span{
-	display: inline-block;
-	margin: 0 5px;
-	background: #ededed;
-	border: 1px solid #dddddd;
-	border-radius: 3px;
+    display: inline-block;
+    margin: 0 5px;
+    background: #f9f9f9;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    max-width: 425px;
+    float: left;
+    word-wrap: break-word;
+    padding: 5px;
 }
 
 .talk .talk-bottom{
 	border-top: 1px solid #e5e5e5;
 }
 
-.talk textarea{
+.talk .talk-bottom textarea{
     height: 100px;
     width: 96%;
     padding: 4px 2%;
@@ -205,4 +246,51 @@ body{
     border-radius: 4px;
     outline: none;
     resize: none;
+}
+
+.talk .talk-bottom button{
+	-webkit-appearance: none;
+    margin: 0;
+    border: none;
+    overflow: visible;
+    font: inherit;
+    color: #666;
+    text-transform: none;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 12px;
+    background: #f7f7f7;
+    vertical-align: middle;
+    line-height: 28px;
+    min-height: 30px;
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.2);
+    border-bottom-color: rgba(0,0,0,.3);
+    background-origin: border-box;
+    background-image: -webkit-linear-gradient(top,#fff,#eee);
+    background-image: linear-gradient(to bottom,#fff,#eee);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 #fff;
+    float: right;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.talk .talk-bottom button:focus, .talk .talk-bottom button:hover {
+    background-color: #fafafa;
+    color: #666;
+    outline: 0;
+    text-decoration: none;
+    background-image: none;
+}
+
+.talk .talk-bottom button:active {
+    background-color: #f5f5f5;
+    color: #666;
+    border-color: rgba(0,0,0,.2);
+    border-top-color: rgba(0,0,0,.3);
+    background-image: none;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.1);
 }
