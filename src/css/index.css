@@ -171,13 +171,18 @@ body{
 }
 
 /*聊天窗口*/
+.talk .talk-content{
+	height: calc(100% - 165px);
+	background: red;
+}
+
 .talk .talk-bottom{
 	border-top: 1px solid #e5e5e5;
 }
 
 .talk textarea{
     height: 100px;
-    width: 95%;
+    width: 96%;
     padding: 4px 2%;
     border: 0;
     background: #fff;
