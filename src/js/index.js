@@ -54,12 +54,13 @@ $(".friend .friend-top div .create-group").on("click",function(){
  */
 $("#friend-list").delegate('.friend-block',"click",function(){
 	var number = $(this).attr("number");
+	var talkName = $(this).find(".info .nackname").text();
     $('#msg-number').val(number);
     $('#msg-type').val(1);
     // 隐藏其他所有聊天框，展示当前好友聊天框
 	var id = 'person'+number;
 	$('.msg-init').css('display','none');
-	$('#ltalk-name').text("???");
+	$('#ltalk-name').text(talkName);
     $(this).find('.ismsg').remove();
 
     $('#ltalk ul').not("#".id).css('display','none');
