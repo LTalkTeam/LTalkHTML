@@ -2,13 +2,6 @@
  * 公共js文件
  * */
 
-<<<<<<< HEAD
-
-var token = JSON.parse(sessionStorage.getItem('token'));
-if(token==undefined){
-    location.href = loginUrl;
-}
-
 
 /*公共的ajax方法执行*/
 function ajaxUnifiedEntrance(AUEData) {
@@ -166,8 +159,6 @@ function inputNotEmpty(inputClassName) {
 	}
 }
 
-=======
->>>>>>> bf1c4e8bdfc3cb1bddae1cdfee83ad7c6ae285e3
 /*
  * 时间戳转日期
  * 参数一，时间戳，参数二输出的时间格式，1只有年月日，2年月日加时分秒

@@ -1,3 +1,8 @@
+var token = JSON.parse(sessionStorage.getItem('token'));
+if(token==undefined){
+    location.href = loginUrl;
+}
+
 /*
  * 在线人数统计
  */
