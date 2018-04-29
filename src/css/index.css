@@ -84,7 +84,7 @@ body{
 	border-radius:  50px;
 	float: left;
 	margin:22px 25px;
-	box-shadow: 2px 2px 5px #939292;
+	box-shadow: 1px 1px 3px #939292;
 }
 
 .online{
@@ -117,7 +117,7 @@ body{
 	height:12px;
 	border-radius:  50px;
 	float: right;
-	box-shadow: 2px 2px 5px #939292;
+	box-shadow: 1px 1px 3px #939292;
 	background: #F44336;
 	margin-top: 22px;
     margin-right: 10px;
