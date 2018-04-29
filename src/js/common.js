@@ -2,11 +2,6 @@
  * 公共js文件
  * */
 
-var token = JSON.parse(sessionStorage.getItem('token'));
-if(token==undefined){
-    location.href = loginUrl;
-}
-
 /*
  * 时间戳转日期
  * 参数一，时间戳，参数二输出的时间格式，1只有年月日，2年月日加时分秒

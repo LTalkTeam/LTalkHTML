@@ -1,3 +1,7 @@
+var token = JSON.parse(sessionStorage.getItem('token'));
+if(token==undefined){
+    location.href = loginUrl;
+}
 
 /*添加好友*/
 $(".friend .friend-top div .add-friends").on("click",function(){
