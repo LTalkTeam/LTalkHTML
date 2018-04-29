@@ -176,3 +176,16 @@ function chat(data) {
 		);
 	}
 }
+
+/*
+ * 世界聊天
+ */
+function worldChat(data) {
+	var msg = data.msg;
+	var user = data.user;
+
+    var text = "<li>"+"<p>"+ "<font>"+ user['nickname']+ "("+user['number']+")</font>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
+    $('#world-talk').append(
+        text
+    );
+}
