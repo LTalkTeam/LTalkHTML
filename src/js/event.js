@@ -114,12 +114,13 @@ function newFriendFail(data){
 }
 /*添加好友成功后*/
 function newFriend(data){
+    var online = data.online==1?"online":"offline";
 	layer.confirm("您已成功添加好友"+data.nickname, {
 	  btn: ['确定'] //按钮
 	}, function(){
 		$("#friend-list").prepend(
 	    	'<div class="friend-block" number="'+data.number+'" title="上次登录时间：'+data.last_login+'">'+
-	        	'<div class="status '+data.online+'"></div>'+
+	        	'<div class="status '+online+'"></div>'+
 	        	'<div class="info">'+
 					'<div class="nackname">'+data.nickname+'</div>'+
 					'<div class="number">'+data.number+'</div>'+
