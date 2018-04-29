@@ -12,7 +12,3 @@ var indexUrl = 'index.html';
 //
 //var indexUrl = '/Users/yuzhang/www/LTalk-html/index.html';
 
-var token = JSON.parse(sessionStorage.getItem('token'));
-if(token==undefined){
-    location.href = loginUrl;
-}

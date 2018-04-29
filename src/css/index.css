@@ -169,3 +169,22 @@ body{
 .statistics span {
 	display: block;
 }
+
+/*聊天窗口*/
+.talk .talk-bottom{
+	border-top: 1px solid #e5e5e5;
+}
+
+.talk textarea{
+    height: 100px;
+    width: 95%;
+    padding: 4px 2%;
+    border: 0;
+    background: #fff;
+    color: #666;
+    -webkit-transition: all linear .2s;
+    transition: all linear .2s;
+    border-radius: 4px;
+    outline: none;
+    resize: none;
+}
