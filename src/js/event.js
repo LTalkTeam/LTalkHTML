@@ -171,9 +171,11 @@ function chat(data) {
     // 判断当前窗口是否是对话人，不是则加红点
 	var msg_number = $('#msg-number').val();
 	if(msg_number!=number){
-		$('.friend-block[number="'+number+'"]').append(
-        	'<div class="ismsg"></div>'
-		);
+        if($('.friend-block[number="'+number+'"] .ismsg').length===0){
+            $('.friend-block[number="'+number+'"]').append(
+                '<div class="ismsg"></div>'
+            );
+		}
 	}
 }
 

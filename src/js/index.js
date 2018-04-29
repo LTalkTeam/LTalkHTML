@@ -76,7 +76,7 @@ $("#friend-list").delegate('.friend-block',"click",function(){
 });
 
 /*
- * 发送好友消息
+ * 发送好友/群组消息
  */
 $('#msg-button').on("click",function(){
     var msg = $("#msg").val();
@@ -87,7 +87,7 @@ $('#msg-button').on("click",function(){
 	var number = $('#msg-number').val();
 	var type   = $('#msg-type').val();
 	if(number===null||number===undefined||number===""){
-        layer.msg("number获取失败");
+        layer.msg("请先选择一位好友");
         return false;
 	}
 
@@ -131,7 +131,7 @@ $('#world-button').on("click",function(){
     ws.send(data);
     $("#world-msg").val("");
 
-    var text = "<li class='me'>"+"<p>"+ "<font>"+ "我"+ "</font>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
+    var text = "<li class='me'>"+"<p>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
     $('#world-talk').append(
         text
     );
