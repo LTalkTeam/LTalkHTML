@@ -111,3 +111,28 @@ $('#msg-button').on("click",function(){
     ws.send(data);
     $("#msg").val("");
 });
+
+
+/*
+ * 发送世界消息
+ */
+$('#world-button').on("click",function(){
+    var msg = $("#world-msg").val();
+    if(msg===null||msg===undefined||msg===""){
+        layer.msg("不能发送空白消息");
+        return false;
+    }
+    var data = {
+        "controller":'World',
+        "action":"chat",
+        "content":{"token":token,'data':msg}
+    };
+    var data = JSON.stringify(data);
+    ws.send(data);
+    $("#world-msg").val("");
+
+    var text = "<li class='me'>"+"<p>"+ "<font>"+ "我"+ "</font>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
+    $('#world-talk').append(
+        text
+    );
+});

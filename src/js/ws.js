@@ -20,10 +20,10 @@ ws.onmessage = function (ev) {
     if(data.method !=undefined && data.method != null && data.method != ""){
         var method = data.method;
         eval(method+"(data.data)");
+    }else if(data.errorCode == 50000){
+        location.href = loginUrl;
     } else{
-        if( data.errorCode == 50000){
-            location.href = loginUrl;
-        }
+        layer.msg('errCode:'+data.errorCode+' '+data.msg);
     }
 };
 
