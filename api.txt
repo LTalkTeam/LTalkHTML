@@ -152,23 +152,10 @@
 		controller 	: Friend
 		action	  	: doReq
 		content		: token/number/check
-	同意结果：（不同意无结果，无需处理）
-		{
-			"type":"ws",
-			"method":"newFriend",
-			"data":{
-				"number":309806,
-				"nickname":"lostsky2",
-				"last_login":1524364509,
-				"online":1
-			}
-		}
-
-	备注：newFriend 需要在好友列表添加一个新好友
 
 
 8. [*] 添加好友的结果
-	对方同意：
+	同意：（给双方发）
 		{
 			"type":"ws",
 			"method":"newFriend",
@@ -179,7 +166,7 @@
 				"online":1
 			}
 		}
-	对方不同意：
+	不同意：（给请求方发）
 		{
 			"type":"ws",
 			"method":"newFriendFail",
@@ -276,9 +263,85 @@
 
 	备注：服务器每两秒发送一次统计信息
 
+15. 创建群组
+    发送：
+		controller 	: Group
+		action	  	: create
+		content		: token/gname/ginfo
+	结果：
+		{
+			"type":"ws",
+			"method":"newGroup",
+			"data":{
+                "gname":"前端交流群",
+                "ginfo":"这是一个极好的群"
+                "gnumber":"26346238"
+            }
+		}
 
+	发送参数说明：
+        gname 	： 群名称
+        ginfo   ： 群描述
 
+	返回数据参数说明：
+		gname 	： 群名称
+		ginfo   ： 群描述
+		gnumber ： 群号
 
+	备注：每个用户最多可创建3个组，超过三个会有错误提示
+	     创建群以后就默认加入了该群
 
+16. 加入群组
+    发送：
+		controller 	: Group
+		action	  	: joinGroup
+		content		: token/gnumber
+	结果：
+		{
+			"type":"ws",
+			"method":"newGroup",
+			"data":{
+                "gname":"前端交流群",
+                "ginfo":"这是一个极好的群"
+                "gnumber":"26346238"
+            }
+		}
 
+	发送参数说明：
+        gnumber ： 请求加入的群号
 
+17. 群组内聊天
+    发送：
+        controller 	: Chat
+        action	  	: groupChat
+        content		: token/gnumber/data
+
+    发送参数说明：
+        gnumber ： 哪个群的消息
+        msg     ： 消息内容
+        user    ： 发送人的信息
+
+    备注：自己的消息，自己不会收到，所以无结果返回，在前端发送请求成功后，默认成功发送给所有人
+         所以当发送后，就在页面插入自己的消息即可
+
+18. [*] 收到群组聊天信息
+    {
+        "type":"ws",
+        "method":"groupChat",
+        "data":{
+            "groupNumber":"3242342",
+            "msg":"haha"
+            "user":{
+                "number":"113314",
+                "nickname":"lostsky",
+                "sex":"",
+                "last_login":"1524364499"
+            }
+        }
+    }
+    收到的参数说明：
+        groupNumber ： 哪个群的消息
+        msg         ： 消息内容
+        user        ： 发送人的信息
+
+    备注：一定是别人的消息
