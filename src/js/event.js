@@ -41,10 +41,23 @@ function friendOnLine(data) {
 	var thisHtml = res.prop("outerHTML");
 	res.remove();
 	$("#friend-list").prepend(thisHtml);
-	$
 //	console.log(thisHtml);
 //  console.log(res);
 }
+
+/*
+ * 好友下线提醒
+ */
+function friendOffLine(data){
+    var number = data.number;
+    var res = $(".friend-block[number$='"+number+"']");
+    res.find(".status").removeClass("online");
+    res.find(".status").addClass("offline");
+    var thisHtml = res.prop("outerHTML");
+    res.remove();
+    $("#friend-list").append(thisHtml);
+}
+
 
 /*
  * 好友列表
@@ -129,4 +142,37 @@ function newFriend(data){
 		);
 		layer.closeAll();
 	});
+}
+
+/*
+ * 好友聊天消息
+ * flag == 1 表示自己的消息 2 表示对方的
+ *
+ */
+function chat(data) {
+	var number = data.number;
+	var flag = data.flag;
+	var data = data.data;
+	var me = flag==1?"me":"";
+    var id = 'person'+number;
+    var res = $('#ltalk ul[id="'+id+'"]');
+    var text = "<li class="+me+">"+"<p>"+ "<span>"+ data+ "</span>"+ "</p>"+ "</li>";
+    if(res.length>0){
+        res.append(
+            text
+		);
+    }else{
+        $('.talk-content').append(
+            "<ul id='"+id+"' style='display: none;'>"+
+            	text+
+            "</ul>"
+        );
+    }
+    // 判断当前窗口是否是对话人，不是则加红点
+	var msg_number = $('#msg-number').val();
+	if(msg_number!=number){
+		$('.friend-block[number="'+number+'"]').append(
+        	'<div class="ismsg"></div>'
+		);
+	}
 }

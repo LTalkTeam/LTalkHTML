@@ -52,140 +52,24 @@
 		</div>
 		<div class="talk">
 			<div class="talk-top">
-				<div class="talk-name">peiqi</div>
+				<div class="talk-name" id="ltalk-name">(空)</div>
 			</div>
-			<div class="talk-content">
-				<ul>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								111111111111111111111111111111111111111111111111111111
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								2222222222222222222222222222222222222222222
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font style="float: right;text-align: right;">：lostsky2</font>
-							<span style="float: right;text-align: right;">
-								3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								44444444444444444444444444444444444444444444444444444444444444
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font style="float: right;text-align: right;">：lostsky2</font>
-							<span style="float: right;text-align: right;">
-								555555555555555555555555555555555健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								666666666666健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								44444444444444444444444444444444444444444444444444444444444444
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font style="float: right;text-align: right;">：lostsky2</font>
-							<span style="float: right;text-align: right;">
-								555555555555555555555555555555555健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								666666666666健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								44444444444444444444444444444444444444444444444444444444444444
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font style="float: right;text-align: right;">：lostsky2</font>
-							<span style="float: right;text-align: right;">
-								555555555555555555555555555555555健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								666666666666健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								44444444444444444444444444444444444444444444444444444444444444
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font style="float: right;text-align: right;">：lostsky2</font>
-							<span style="float: right;text-align: right;">
-								555555555555555555555555555555555健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-					<li>
-						<p>
-							<font>lostsky2：</font>
-							<span>
-								666666666666健身房还多久卡萨返回看电视副科级的火山口服活动结束开发换角色看到回复金卡戴珊焚枯食淡和福克斯地方斯蒂芬
-							</span>
-						</p>
-					</li>
-				</ul>
+			<div class="talk-content" id="ltalk">
+				<p class="msg-init">选择一位好友，开始聊天吧！</p>
 			</div>
 			<div class="talk-bottom">
-				<textarea></textarea>
-				<button type="button">发送</button>
+				<!--是好友消息还是群组消息,1 为好友消息，2为群组消息-->
+				<input type="hidden" id="msg-type">
+				<!--好友号/群组号-->
+				<input type="hidden" id="msg-number">
+
+				<textarea id="msg"></textarea>
+				<button type="button" id="msg-button">发送</button>
 			</div>
 		</div>
 		<div class="world">
 			<div class="talk-top">
-				<div class="talk-name">LTalk!</div>
+				<div class="talk-name">World</div>
 			</div>
 			<div class="talk-content">
 				<ul>

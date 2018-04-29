@@ -35,7 +35,7 @@ $(".btn-login").on("click",function(){
            }
         })
 	}
-})
+});
 
 
 /*注册*/
@@ -72,7 +72,7 @@ $(".btn-register").on("click",function(){
 			layer.msg("两次密码不一致");
 		}
 	}
-})
+});
 
 function reurl(){
 	location.href = loginUrl;

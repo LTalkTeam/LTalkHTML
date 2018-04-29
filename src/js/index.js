@@ -35,7 +35,6 @@ $(".friend .friend-top div .add-group").on("click",function(){
 	        "action":"getFriends",
 	        "content":{"token":token}
 	    };
-	    console.log(data);
 	    var data = JSON.stringify(data);
 	    ws.send(data);
 	});
@@ -48,4 +47,66 @@ $(".friend .friend-top div .create-group").on("click",function(){
 	  layer.close(index);
 	  layer.msg(thisText+'账户：'+ pass);
 	});
+});
+
+/*
+ * 点击好友列表块，开始聊天
+ */
+$("#friend-list").delegate('.friend-block',"click",function(){
+	var number = $(this).attr("number");
+    $('#msg-number').val(number);
+    $('#msg-type').val(1);
+    // 隐藏其他所有聊天框，展示当前好友聊天框
+	var id = 'person'+number;
+	$('.msg-init').css('display','none');
+	$('#ltalk-name').text("???");
+    $(this).find('.ismsg').remove();
+
+    $('#ltalk ul').not("#".id).css('display','none');
+    var res = $('#ltalk ul[id="'+id+'"]');
+	if(res.length>0){
+        res.css('display','block');
+	}else{
+        $('.talk-content').append(
+        	"<ul id='"+id+"'>"+
+			"</ul>"
+		);
+	}
+});
+
+/*
+ * 发送好友消息
+ */
+$('#msg-button').on("click",function(){
+    var msg = $("#msg").val();
+    if(msg===null||msg===undefined||msg===""){
+        layer.msg("不能发送空白消息");
+        return false;
+	}
+	var number = $('#msg-number').val();
+	var type   = $('#msg-type').val();
+	if(number===null||number===undefined||number===""){
+        layer.msg("number获取失败");
+        return false;
+	}
+
+	if(type==1){		// 好友消息
+        var data = {
+            "controller":'Chat',
+            "action":"personalChat",
+            "content":{"token":token,'number':number,'data':msg}
+        };
+	}else if(type==2){	// 群组消息
+        var data = {
+            "controller":'',
+            "action":"",
+            "content":{"token":token}
+        };
+	}else{
+        layer.msg("未知错误");
+        return false;
+	}
+    var data = JSON.stringify(data);
+    ws.send(data);
+    $("#msg").val("");
 });
