@@ -6,11 +6,6 @@
  * 6. 关掉页面时，清除缓存
  */
 
-var token = JSON.parse(sessionStorage.getItem('token'));
-
-if(token==undefined){
-    location.href = loginUrl;
-}
 
 var ws = new WebSocket('ws://118.24.77.25:9502');
 

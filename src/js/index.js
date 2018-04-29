@@ -1,12 +1,7 @@
 
-/*好友/分组点击切换*/
-//$(".friend .friend-top div").on("click",function(){
-//	$(this).find("i").toggleClass("fa-caret-up");
-//	$(this).siblings("div").find("i").addClass("fa-caret-up");
-//})
-
 /*添加好友*/
 $(".friend .friend-top div .add-friends").on("click",function(){
+	$(".friend .friend-top div .btn-group").siblings("ul").hide();
 	var thisText = $(this).parent().text();
 	layer.prompt({title: '请输入您要添加的'+thisText+'id', formType: 3}, function(pass, index){
 	  layer.close(index);
@@ -27,6 +22,7 @@ $(".friend .friend-top div .btn-group").on("click",function(){
 });
 
 $(".friend .friend-top div .add-group").on("click",function(){
+	$(".friend .friend-top div .btn-group").siblings("ul").hide();
 	var thisText = $(this).parent().text();
 	layer.prompt({title: '请输入您要添加的群组id', formType: 3}, function(pass, index){
 	  layer.close(index);
@@ -42,6 +38,7 @@ $(".friend .friend-top div .add-group").on("click",function(){
 });
 
 $(".friend .friend-top div .create-group").on("click",function(){
+	$(".friend .friend-top div .btn-group").siblings("ul").hide();
 	var thisText = $(this).parent().text();
 	layer.prompt({title: '请输入您要创建的群组名称', formType: 3}, function(pass, index){
 	  layer.close(index);

@@ -27,10 +27,18 @@ function ok(data){
  */
 function friendOnLine(data) {
     var number = data.number;
-    var res = $(".friend-block[number$="+number+"]");
+    var res = $(".friend-block[number$='"+number+"']");
     // 替换在线状态，去掉上次登陆时间属性
 	// 移动到列表最开始
-    console.log(res);
+	res.find(".status").removeClass("offline");
+	res.find(".status").addClass("online");
+	res.attr("title",'');
+	var thisHtml = res.prop("outerHTML");
+	res.remove();
+	$("#friend-list").prepend(thisHtml);
+	$
+//	console.log(thisHtml);
+//  console.log(res);
 }
 
 /*
@@ -61,4 +69,58 @@ function getFriends(data) {
             '</div>'
 		);
     }
+}
+
+/*收到添加好友的申请*/
+function friendRequest(data){
+	var numberId = data.from.number;
+	layer.confirm(data.from.nickname+'申请添加您为好友', {
+	  btn: ['同意','拒绝'] //按钮
+	}, function(){
+	    var data = {
+	        "controller":"Friend",
+	        "action":"doReq",
+	        "content":{"token":token,"number":numberId,"check":1}
+	    };
+	    var data = JSON.stringify(data);
+	    ws.send(data);
+	    layer.closeAll();
+	}, function(){
+		var data = {
+	        "controller":"Friend",
+	        "action":"doReq",
+	        "content":{"token":token,"number":numberId,"check":0}
+	    };
+	    var data = JSON.stringify(data);
+	    ws.send(data);
+		layer.closeAll();
+		layer.msg("您拒绝了好友添加的申请");
+	});
+}
+
+/*添加好友的结果处理*/
+/*拒绝添加好友*/
+function newFriendFail(data){
+	layer.confirm(data, {
+	  btn: ['知道了'] //按钮
+	}, function(){
+		layer.closeAll();
+	});
+}
+/*添加好友成功后*/
+function newFriend(data){
+	layer.confirm("您已成功添加好友"+data.nickname, {
+	  btn: ['确定'] //按钮
+	}, function(){
+		$("#friend-list").prepend(
+	    	'<div class="friend-block" number="'+data.number+'" title="上次登录时间：'+data.last_login+'">'+
+	        	'<div class="status '+data.online+'"></div>'+
+	        	'<div class="info">'+
+					'<div class="nackname">'+data.nickname+'</div>'+
+					'<div class="number">'+data.number+'</div>'+
+				'</div>'+
+	        '</div>'
+		);
+		layer.closeAll();
+	});
 }

@@ -161,3 +161,11 @@ body{
 	text-decoration: none;
     font-size: 13px;
 }
+
+.statistics{
+	text-align: center;
+}
+
+.statistics span {
+	display: block;
+}
