@@ -324,3 +324,14 @@ body{
     color: #787878;
     margin-top: 200px;
 }
+
+.talk-bottom-btn {
+	text-align: right;
+}
+
+.talk-bottom-btn span{
+	display: inline-block;
+    margin: 0 10px;
+    line-height: 30px;
+    font-size: 12px;
+}

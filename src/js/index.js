@@ -110,7 +110,20 @@ $('#msg-button').on("click",function(){
     var data = JSON.stringify(data);
     ws.send(data);
     $("#msg").val("");
+    $('#ltalk').scrollTop( $('#ltalk ul')[0].scrollHeight );
 });
+
+/*shift+enter组合键监听*/
+$(document).keypress(function(e){
+	if(event.shiftKey&&event.keyCode==13){
+		if($.trim($("#msg").val()) != "" && $.trim($("#msg").val()).length > 0){
+			$('#msg-button').click();
+		}
+		if($.trim($("#world-msg").val()) != "" && $.trim($("#world-msg").val()).length > 0){
+			$('#world-button').click();
+		}
+	}
+})
 
 
 /*
@@ -135,4 +148,5 @@ $('#world-button').on("click",function(){
     $('#world-talk').append(
         text
     );
+    $('.word .talk-content').scrollTop( $('#world-talk')[0].scrollHeight );
 });
