@@ -16,7 +16,7 @@ ws.onopen = function (ev) {
 
 ws.onmessage = function (ev) {
     var data = eval('(' + ev.data + ')');
-    console.log(ev.data);
+    // console.log(ev.data);
     if(data.method !=undefined && data.method != null && data.method != ""){
         var method = data.method;
         eval(method+"(data.data)");
