@@ -67,5 +67,11 @@ function getFriendsList() {
 
 // 获取群组列表
 function getGroupsList() {
-    
+    var data = {
+        "controller":'Group',
+        "action":"getGroups",
+        "content":{"token":token}
+    };
+    var data = JSON.stringify(data);
+    ws.send(data);
 }

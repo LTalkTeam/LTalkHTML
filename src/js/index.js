@@ -3,6 +3,11 @@ if(token==undefined){
     location.href = loginUrl;
 }
 
+$('.pic').on("click",function(){
+    layer.alert('只想简单的提示');
+});
+
+
 /*添加好友*/
 $(".friend .friend-top div .add-friends").on("click",function(){
 	$(".friend .friend-top div .btn-group").siblings("ul").hide();
@@ -65,51 +70,26 @@ $(".friend .friend-top div .create-group").on("click",function(){
 	});
 });
 
-/*创建组*/
-function newGroup(data){
-	$("#friend-list").empty();
-	$('#group-list').append(
-    	'<div class="friend-block" ginfo="'+data.ginfo+'">'+
-//      	'<div class="status '+data.gname+'"></div>'+
-			'<i class="fa fa-group"></i>'+
-        	'<div class="info">'+
-				'<div class="nackname">'+data.gname+'</div>'+
-				'<div class="number">'+data.gnumber+'</div>'+
-			'</div>'+
-        '</div>'
-	);
-}
 
 /*切换到群组列表*/
 $(".friend .friend-top-right").not("i").on("click",function(){
-	var data = {
-        "controller":'Group',
-        "action":"getGroups",
-        "content":{"token":token}
-    };
-    var data = JSON.stringify(data);
-    ws.send(data);
-})
+    $('#friend-list').css('display','none');
+    $('#group-list').css('display','block');
+});
 
-function groupList(data){
-	$("#friend-list").empty();
-	for(var i= 0;i<data.length;i++){
-		$('#group-list').append(
-	    	'<div class="friend-block" ginfo="'+data[i].ginfo+'">'+
-				'<i class="fa fa-group"></i>'+
-	        	'<div class="info">'+
-					'<div class="nackname">'+data[i].gname+'</div>'+
-					'<div class="number">'+data[i].gnumber+'</div>'+
-				'</div>'+
-	        '</div>'
-		);
-	}
-}
+/*切换到好友列表*/
+$(".friend .friend-top-left").not("i").on("click",function(){
+    $('#group-list').css('display','none');
+    $('#friend-list').css('display','block');
+});
+
 
 /*
  * 点击好友列表块，开始聊天
  */
 $("#friend-list").delegate('.friend-block',"click",function(){
+    $(".friend-block").css('background','#e9e9e9');
+	$(this).css('background','#d6d6d7');
 	var number = $(this).attr("number");
 	var talkName = $(this).find(".info .nackname").text();
     $('#msg-number').val(number);
@@ -131,6 +111,35 @@ $("#friend-list").delegate('.friend-block',"click",function(){
 		);
 	}
 });
+
+/*
+ * 点击群组列表块，开始聊天
+ */
+$("#group-list").delegate('.friend-block',"click",function(){
+    $(".friend-block").css('background','#e9e9e9');
+    $(this).css('background','#d6d6d7');
+    var number = $(this).attr("number");
+    var talkName = $(this).find(".info .nackname").text();
+    $('#msg-number').val(number);
+    $('#msg-type').val(2);
+    // 隐藏其他所有聊天框，展示当前好友聊天框
+    var id = 'group'+number;
+    $('.msg-init').css('display','none');
+    $('#ltalk-name').text(talkName);
+    $(this).find('.ismsg').remove();
+
+    $('#ltalk ul').not("#".id).css('display','none');
+    var res = $('#ltalk ul[id="'+id+'"]');
+    if(res.length>0){
+        res.css('display','block');
+    }else{
+        $('.talk-content').append(
+            "<ul id='"+id+"'>"+
+            "</ul>"
+        );
+    }
+});
+
 
 /*
  * 发送好友/群组消息
@@ -156,9 +165,9 @@ $('#msg-button').on("click",function(){
         };
 	}else if(type==2){	// 群组消息
         var data = {
-            "controller":'',
-            "action":"",
-            "content":{"token":token}
+            "controller":'Chat',
+            "action":"groupChat",
+            "content":{"token":token,'gnumber':number,'data':msg}
         };
 	}else{
         layer.msg("未知错误");
@@ -174,21 +183,21 @@ $(document).keypress(function(e){
 	if(event.shiftKey&&event.keyCode==13){
         if($("#msg").is(":focus")){
             var val = $('#msg').val();
-            $('#msg').val(val+"\n");
+            // $('#msg').val(val+"\n");
         }
         if($("#world-msg").is(":focus")){
             var val = $('#world-msg').val();
-            $('#world-msg').val(val+"\n");
+            // $('#world-msg').val(val+"\n");
         }
 	}
 	else if(event.keyCode==13){
         if($("#msg").is(":focus")){
             $('#msg-button').click();
-            $("#msg").val("");
+            event.preventDefault();
         }
         if($("#world-msg").is(":focus")){
             $('#world-button').click();
-            $("#world-msg").val("");
+            event.preventDefault();
         }
     }
 });

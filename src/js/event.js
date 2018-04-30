@@ -13,7 +13,10 @@ function Statistics(data) {
 /*
  * 初始化后获取好友列表
  */
-function initok() {
+function initok(data) {
+    $('#mynickname').val(data.nickname);
+    $('#mynumber').val(data.number);
+    $('#last_login').val(data.last_login);
     // 获取好友列表
     getFriendsList();
     // 获取群组列表
@@ -63,7 +66,6 @@ function friendOffLine(data){
  * 好友列表
  */
 function getFriends(data) {
-	$("#group-list").empty();
     var online=[];
     var offline=[];
     for(var i=0; i< data.length;i++){
@@ -145,16 +147,6 @@ function newFriend(data){
 	});
 }
 
-/*切换到好友列表*/
-$(".friend .friend-top-left").not("i").on("click",function(){
-	var data = {
-        "controller":'Friend',
-        "action":"getFriends",
-        "content":{"token":token}
-    };
-    var data = JSON.stringify(data);
-    ws.send(data);
-})
 
 /*
  * 好友聊天消息
@@ -193,14 +185,86 @@ function chat(data) {
 }
 
 /*
+ * 群组聊天消息
+ * flag == 1 表示自己的消息 2 表示对方的
+ *
+ */
+function groupChat(data) {
+    var number = data.groupNumber;
+    var flag = data.flag;
+    var msg = data.msg;
+    var user = data.user;
+    var id = 'group'+number;
+    var res = $('#ltalk ul[id="'+id+'"]');
+
+    if(flag==1){
+        var text = "<li class='me'>"+"<p>"+ "<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
+	}else{
+        var text = "<li>"+"<p>"+ "<font>"+ user['nickname']+ " ( "+user['number']+" ) </font>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
+    }
+
+    if(res.length>0){
+        res.append(
+            text
+        );
+    }else{
+        $('.talk-content').append(
+            "<ul id='"+id+"' style='display: none;'>"+
+            text+
+            "</ul>"
+        );
+    }
+    // 判断当前窗口是否是对话人，不是则加红点
+    var msg_number = $('#msg-number').val();
+    var msg_type = $('#msg-type').val();
+    if(!(msg_number==number && msg_type==2)){
+        if($('#group-list .friend-block[number="'+number+'"] .ismsg').length===0){
+            $('#group-list .friend-block[number="'+number+'"]').append(
+                '<div class="ismsg"></div>'
+            );
+        }
+    }
+    setTimeout(function(){$('#ltalk').scrollTop( $('#ltalk ul')[0].scrollHeight );},100)
+}
+
+
+/*
  * 世界聊天
  */
 function worldChat(data) {
 	var msg = data.msg;
 	var user = data.user;
 
-    var text = "<li>"+"<p>"+ "<font>"+ user['nickname']+ "("+user['number']+")</font>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
+    var text = "<li>"+"<p>"+ "<font>"+ user['nickname']+ " ( "+user['number']+" )</font>"+"<span>"+ msg+ "</span>"+ "</p>"+ "</li>";
     $('#world-talk').append(
         text
+    );
+}
+
+function groupList(data){
+    for(var i= 0;i<data.length;i++){
+        $('#group-list').append(
+            '<div class="friend-block" number="'+data[i].info.gnumber+'" ginfo="'+data[i].info.ginfo+'">'+
+            '<i class="fa fa-group"></i>'+
+            '<div class="info">'+
+            '<div class="nackname">'+data[i].info.gname+'</div>'+
+            '<div class="number">'+data[i].info.gnumber+'</div>'+
+            '</div>'+
+            '</div>'
+        );
+    }
+}
+
+/*创建组*/
+function newGroup(data){
+    $('#group-list').append(
+        '<div class="friend-block" number="'+data.gnumber+'"  ginfo="'+data.ginfo+'">'+
+        //      	'<div class="status '+data.gname+'"></div>'+
+        '<i class="fa fa-group"></i>'+
+        '<div class="info">'+
+        '<div class="nackname">'+data.gname+'</div>'+
+        '<div class="number">'+data.gnumber+'</div>'+
+        '</div>'+
+        '</div>'
     );
 }
