@@ -150,14 +150,23 @@ $('#msg-button').on("click",function(){
 /*shift+enter组合键监听*/
 $(document).keypress(function(e){
 	if(event.shiftKey&&event.keyCode==13){
-		if($.trim($("#msg").val()) != "" && $.trim($("#msg").val()).length > 0){
-			$('#msg-button').click();
-		}
-		if($.trim($("#world-msg").val()) != "" && $.trim($("#world-msg").val()).length > 0){
-			$('#world-button').click();
-		}
-	}
-})
+        if($("#msg").is(":focus")){
+            var val = $('#msg').val();
+            $('#msg').val(val+"\n");
+        }
+        if($("#world-msg").is(":focus")){
+            var val = $('#world-msg').val();
+            $('#world-msg').val(val+"\n");
+        }
+	}else if(event.keyCode==13){
+        if($("#msg").is(":focus")){
+            $('#msg-button').click();
+        }
+        if($("#world-msg").is(":focus")){
+            $('#world-button').click();
+        }
+    }
+});
 
 
 /*
