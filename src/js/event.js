@@ -63,6 +63,7 @@ function friendOffLine(data){
  * 好友列表
  */
 function getFriends(data) {
+	$("#group-list").empty();
     var online=[];
     var offline=[];
     for(var i=0; i< data.length;i++){
@@ -143,6 +144,17 @@ function newFriend(data){
 		layer.closeAll();
 	});
 }
+
+/*切换到好友列表*/
+$(".friend .friend-top-left").not("i").on("click",function(){
+	var data = {
+        "controller":'Friend',
+        "action":"getFriends",
+        "content":{"token":token}
+    };
+    var data = JSON.stringify(data);
+    ws.send(data);
+})
 
 /*
  * 好友聊天消息
