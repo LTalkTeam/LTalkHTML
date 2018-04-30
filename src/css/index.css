@@ -335,3 +335,8 @@ body{
     line-height: 30px;
     font-size: 12px;
 }
+
+#group-list .friend-block > i{
+    float: left;
+    margin: 22px 20px 0 20px;	
+}

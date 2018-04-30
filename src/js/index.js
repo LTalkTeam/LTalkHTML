@@ -80,9 +80,31 @@ function newGroup(data){
 	);
 }
 
-$(".friend .friend-top-right").not(".friend .friend-top-right i").on("click",function(){
-	layer.msg(111);
+/*切换到群组列表*/
+$(".friend .friend-top-right").not("i").on("click",function(){
+	var data = {
+        "controller":'Group',
+        "action":"getGroups",
+        "content":{"token":token}
+    };
+    var data = JSON.stringify(data);
+    ws.send(data);
 })
+
+function groupList(data){
+	$("#friend-list").empty();
+	for(var i= 0;i<data.length;i++){
+		$('#group-list').append(
+	    	'<div class="friend-block" ginfo="'+data[i].ginfo+'">'+
+				'<i class="fa fa-group"></i>'+
+	        	'<div class="info">'+
+					'<div class="nackname">'+data[i].gname+'</div>'+
+					'<div class="number">'+data[i].gnumber+'</div>'+
+				'</div>'+
+	        '</div>'
+		);
+	}
+}
 
 /*
  * 点击好友列表块，开始聊天
@@ -158,7 +180,8 @@ $(document).keypress(function(e){
             var val = $('#world-msg').val();
             $('#world-msg').val(val+"\n");
         }
-	}else if(event.keyCode==13){
+	}
+	else if(event.keyCode==13){
         if($("#msg").is(":focus")){
             $('#msg-button').click();
             $("#msg").val("");
