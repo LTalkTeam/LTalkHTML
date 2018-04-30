@@ -181,7 +181,8 @@ function chat(data) {
             );
 		}
 	}
-	setTimeout(function(){$('#ltalk').scrollTop( $('#ltalk ul')[0].scrollHeight );},100)
+    var ul = $('#ltalk').children(':visible');
+    setTimeout(function(){$('#ltalk').scrollTop( ul[0].scrollHeight );},100)
 }
 
 /*
@@ -224,7 +225,8 @@ function groupChat(data) {
             );
         }
     }
-    setTimeout(function(){$('#ltalk').scrollTop( $('#ltalk ul')[0].scrollHeight );},100)
+    var ul = $('#ltalk').children(':visible');
+    setTimeout(function(){$('#ltalk').scrollTop( ul[0].scrollHeight );},100)
 }
 
 
