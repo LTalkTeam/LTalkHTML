@@ -115,7 +115,7 @@ $("#friend-list").delegate('.friend-block',"click",function(){
  */
 $('#msg-button').on("click",function(){
     var msg = $("#msg").val();
-    if(msg===null||msg===undefined||msg===""){
+    if(msg==null||msg==undefined||msg==""){
         layer.msg("不能发送空白消息");
         return false;
 	}
@@ -161,9 +161,11 @@ $(document).keypress(function(e){
 	}else if(event.keyCode==13){
         if($("#msg").is(":focus")){
             $('#msg-button').click();
+            $("#msg").val("");
         }
         if($("#world-msg").is(":focus")){
             $('#world-button').click();
+            $("#world-msg").val("");
         }
     }
 });
@@ -174,7 +176,7 @@ $(document).keypress(function(e){
  */
 $('#world-button').on("click",function(){
     var msg = $("#world-msg").val();
-    if(msg===null||msg===undefined||msg===""){
+    if(msg==null||msg==undefined||msg==""){
         layer.msg("不能发送空白消息");
         return false;
     }
