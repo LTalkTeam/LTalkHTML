@@ -4,7 +4,13 @@ if(token==undefined){
 }
 
 $('.pic').on("click",function(){
-    layer.alert('只想简单的提示');
+    var mynickname = $("#mynickname").val();
+    var mynumber = $("#mynumber").val();
+    var last_login = $("#last_login").val()==""?"-":$("#last_login").val();
+    var text = "昵称："+mynickname+"<br/>"+"LTalk号："+mynumber+"<br/>"+"last_login："+last_login
+    layer.msg(text, {
+        time: 5000
+    });
 });
 
 
