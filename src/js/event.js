@@ -177,6 +177,7 @@ function chat(data) {
             );
 		}
 	}
+	setTimeout(function(){$('#ltalk').scrollTop( $('#ltalk ul')[0].scrollHeight );},100)
 }
 
 /*

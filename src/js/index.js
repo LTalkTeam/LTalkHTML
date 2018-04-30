@@ -25,29 +25,64 @@ $(".friend .friend-top div .btn-group").on("click",function(){
 	$(this).siblings("ul").toggle();
 });
 
+/*加入群*/
 $(".friend .friend-top div .add-group").on("click",function(){
 	$(".friend .friend-top div .btn-group").siblings("ul").hide();
 	var thisText = $(this).parent().text();
 	layer.prompt({title: '请输入您要添加的群组id', formType: 3}, function(pass, index){
 	  layer.close(index);
 	    var data = {
-	        "controller":pass,
-	        "action":"getFriends",
-	        "content":{"token":token}
+	        "controller":'Group',
+	        "action":"joinGroup",
+	        "content":{"token":token,"gnumber":pass}
 	    };
 	    var data = JSON.stringify(data);
 	    ws.send(data);
 	});
 });
 
+/*创建群*/
 $(".friend .friend-top div .create-group").on("click",function(){
 	$(".friend .friend-top div .btn-group").siblings("ul").hide();
 	var thisText = $(this).parent().text();
 	layer.prompt({title: '请输入您要创建的群组名称', formType: 3}, function(pass, index){
-	  layer.close(index);
-	  layer.msg(thisText+'账户：'+ pass);
+		layer.close(index);
+		layer.prompt({
+			title: '群介绍', 
+			formType: 2,
+			yes: function(index, layero){
+		    	layer.close(index);
+		    	layer.msg($(".layui-layer-prompt .layui-layer-input").val());
+			    var data = {
+			        "controller":'Group',
+			        "action":"create",
+			        "content":{"token":token,"gname":pass,"ginfo":$(".layui-layer-prompt .layui-layer-input").val()}
+			    };
+			    var data = JSON.stringify(data);
+			    ws.send(data);
+		  	}
+		});
 	});
 });
+
+/*创建组*/
+function newGroup(data){
+	$("#friend-list").empty();
+	$('#group-list').append(
+    	'<div class="friend-block" ginfo="'+data.ginfo+'">'+
+//      	'<div class="status '+data.gname+'"></div>'+
+			'<i class="fa fa-group"></i>'+
+        	'<div class="info">'+
+				'<div class="nackname">'+data.gname+'</div>'+
+				'<div class="number">'+data.gnumber+'</div>'+
+			'</div>'+
+        '</div>'
+	);
+}
+
+$(".friend .friend-top-right").not(".friend .friend-top-right i").on("click",function(){
+	layer.msg(111);
+})
 
 /*
  * 点击好友列表块，开始聊天
@@ -110,7 +145,6 @@ $('#msg-button').on("click",function(){
     var data = JSON.stringify(data);
     ws.send(data);
     $("#msg").val("");
-    $('#ltalk').scrollTop( $('#ltalk ul')[0].scrollHeight );
 });
 
 /*shift+enter组合键监听*/
@@ -148,5 +182,5 @@ $('#world-button').on("click",function(){
     $('#world-talk').append(
         text
     );
-    $('.word .talk-content').scrollTop( $('#world-talk')[0].scrollHeight );
+    setTimeout(function(){$('#world-talk-content').scrollTop( $('#world-talk-content ul')[0].scrollHeight );},100)
 });
